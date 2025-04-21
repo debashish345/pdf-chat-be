@@ -14,22 +14,17 @@ import software.amazon.awssdk.services.sqs.SqsClientBuilder;
 @Configuration
 public class SQSConfig {
 
-    @Value("${aws.access-key}")
-    private String accessKey;
+    private final AwsCredentialsProvider awsCredentialsProvider;
 
-    @Value("${aws.secret-key}")
-    private String secretKey;
+    public SQSConfig(AwsCredentialsProvider awsCredentialsProvider) {
+        this.awsCredentialsProvider = awsCredentialsProvider;
+    }
 
     @Bean
     public SqsClient amazonSQSClient() {
-        AwsCredentialsProvider awsCredentials = StaticCredentialsProvider.create(AwsBasicCredentials.builder()
-                        .accessKeyId(accessKey)
-                        .secretAccessKey(secretKey)
-                .build());
-
         return SqsClient.builder()
                 .region(Region.AP_SOUTH_1)
-                .credentialsProvider(awsCredentials)
+                .credentialsProvider(awsCredentialsProvider)
                 .build();
     }
 }

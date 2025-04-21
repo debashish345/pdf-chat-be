@@ -1,8 +1,0 @@
-file:
-  upload-dir: ./tmp/uploads
-
-aws:
-  access-key: ${AWS_ACCESS_KEY_ID}
-  secret-key: ${AWS_SECRET_ACCESS_KEY}
-  sqs:
-    queue-url: ${AWS_SQS_QUEUE_URL}
